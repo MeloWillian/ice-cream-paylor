@@ -1,4 +1,4 @@
-package br.edu.ifpb.ice_cream_parlor.model.entities;
+package br.edu.ifpb.ice_cream_parlor.patterns.decorator;
 
 // Interface que representa um sorvete genérico.
 public interface IceCream {

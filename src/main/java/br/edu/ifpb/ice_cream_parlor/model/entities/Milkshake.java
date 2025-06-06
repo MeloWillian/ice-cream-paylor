@@ -1,5 +1,7 @@
 package br.edu.ifpb.ice_cream_parlor.model.entities;
 
+import br.edu.ifpb.ice_cream_parlor.patterns.decorator.IceCream;
+
 // Classe que representa um milkshake.
 public class Milkshake implements IceCream {
     private String baseFlavor;  // Sabor base do milkshake.

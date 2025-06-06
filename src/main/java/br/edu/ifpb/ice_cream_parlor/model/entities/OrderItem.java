@@ -1,5 +1,7 @@
 package br.edu.ifpb.ice_cream_parlor.model.entities;
 
+import br.edu.ifpb.ice_cream_parlor.patterns.decorator.IceCream;
+
 // Representa um item individual dentro de um pedido.
 public class OrderItem {
     private IceCream iceCream; // O sorvete deste item.

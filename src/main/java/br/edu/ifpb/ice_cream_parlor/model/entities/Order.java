@@ -1,5 +1,7 @@
 package br.edu.ifpb.ice_cream_parlor.model.entities;
 
+import br.edu.ifpb.ice_cream_parlor.patterns.decorator.IceCream;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID; // Para um ID único simples.

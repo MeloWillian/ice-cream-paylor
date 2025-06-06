@@ -1,6 +1,6 @@
 package br.edu.ifpb.ice_cream_parlor.model.service;
 
-import br.edu.ifpb.ice_cream_parlor.model.entities.IceCream;
+import br.edu.ifpb.ice_cream_parlor.patterns.decorator.IceCream;
 import br.edu.ifpb.ice_cream_parlor.model.entities.enums.IceCreamType;
 import br.edu.ifpb.ice_cream_parlor.patterns.factory.IceCreamFactory;
 

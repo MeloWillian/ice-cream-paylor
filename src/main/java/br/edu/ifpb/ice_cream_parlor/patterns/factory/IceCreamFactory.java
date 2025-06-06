@@ -2,7 +2,7 @@ package br.edu.ifpb.ice_cream_parlor.patterns.factory;
 
 import br.edu.ifpb.ice_cream_parlor.model.entities.Milkshake;
 import br.edu.ifpb.ice_cream_parlor.model.entities.Popsicle;
-import br.edu.ifpb.ice_cream_parlor.model.entities.IceCream;
+import br.edu.ifpb.ice_cream_parlor.patterns.decorator.IceCream;
 import br.edu.ifpb.ice_cream_parlor.model.entities.ScoopedIceCream;
 import br.edu.ifpb.ice_cream_parlor.model.entities.enums.IceCreamType;
 

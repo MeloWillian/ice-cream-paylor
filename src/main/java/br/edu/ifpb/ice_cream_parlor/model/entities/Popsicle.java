@@ -1,5 +1,7 @@
 package br.edu.ifpb.ice_cream_parlor.model.entities;
 
+import br.edu.ifpb.ice_cream_parlor.patterns.decorator.IceCream;
+
 // Classe que representa um picolé.
 public class Popsicle implements IceCream {
     private String flavor;      // Sabor do picolé.
