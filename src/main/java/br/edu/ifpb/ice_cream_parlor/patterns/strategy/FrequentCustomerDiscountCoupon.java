@@ -1,6 +1,11 @@
 package br.edu.ifpb.ice_cream_parlor.patterns.strategy;
 
-public class SeasonalDiscount implements Coupon {
+public class FrequentCustomerDiscountCoupon implements Coupon{
+
+    @Override
+    public String getName() {
+        return "Cliente frequente";
+    }
 
     @Override
     public double applyDiscount(double totalAmount) {
