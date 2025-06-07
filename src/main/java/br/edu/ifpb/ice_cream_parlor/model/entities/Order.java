@@ -1,6 +1,7 @@
 package br.edu.ifpb.ice_cream_parlor.model.entities;
 
 import br.edu.ifpb.ice_cream_parlor.patterns.decorator.IceCream;
+import br.edu.ifpb.ice_cream_parlor.patterns.strategy.Coupon;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Order {
     private Client client;
     private LocalDate date;
     private String status;
+    private Coupon coupon;
 
     public Order(Client client) {
         this.id = UUID.randomUUID().toString();
@@ -20,6 +22,7 @@ public class Order {
         this.client = client;
         this.date = LocalDate.now();
         this.status = "";
+        this.coupon = null;
     }
 
     public String getId() {
@@ -44,6 +47,14 @@ public class Order {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Coupon getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(Coupon coupon) {
+        this.coupon = coupon;
     }
 
     public void addItem(OrderItem item) {
