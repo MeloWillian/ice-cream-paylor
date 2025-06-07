@@ -24,7 +24,12 @@ public class OrderQueue {
     public void addOrder(Order order) {
         if (order != null) {
             queue.add(order);
-            System.out.println("Order " + order.getId() + " added to the queue.");
+        }
+    }
+
+    public void removeOrder(Order order) {
+        if(order != null) {
+            queue.remove(order);
         }
     }
 
@@ -33,7 +38,7 @@ public class OrderQueue {
         if (nextOrder == null) {
             throw new EmptyQueueException("empty queue");
         }
-        System.out.println("Processing order: " + nextOrder.getId());
+//        System.out.println("Processing order: " + nextOrder.getId());
         return nextOrder;
     }
 

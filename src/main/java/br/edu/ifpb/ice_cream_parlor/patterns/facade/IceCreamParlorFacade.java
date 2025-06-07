@@ -48,6 +48,18 @@ public class IceCreamParlorFacade {
         return order.getId();
     }
 
+    public void cancelOrder(String orderId) {
+        Order order = orders.remove(orderId);
+
+        if (order != null) {
+            queue.removeOrder(order);
+            notifier.notifyObservers(orderId, "Cancelado");
+            System.out.println("❌ Pedido cancelado com sucesso: " + orderId);
+        } else {
+            System.out.println("⚠️ Pedido não encontrado para cancelamento.");
+        }
+    }
+
     // Adiciona sorvete ao pedido
     public void addItemToOrder(String orderId, IceCreamType type, String flavor, int scoops, String size, int quantity) {
         Order order = getOrderById(orderId);
