@@ -9,6 +9,7 @@ import br.edu.ifpb.ice_cream_parlor.patterns.observer.OrderStatusNotifier;
 
 public class Test {
 
+    // Como funciona a integração observer e state
     public static void main(String[] args) {
         Client cliente = new Client("Fernanda");
         ClientNotification notificacao = new ClientNotification(cliente.getName());
@@ -16,7 +17,7 @@ public class Test {
         OrderStatusNotifier notifier = new OrderStatusNotifier();
         notifier.addObserver(notificacao);
 
-        Order pedido = new Order(cliente, notifier); // estado: Novo pedido
+        Order pedido = new Order(notifier); // estado: Novo pedido
         pedido.nextState(); // Em preparo
         pedido.nextState(); // Pronto para retirada
         pedido.nextState(); // Finalizado

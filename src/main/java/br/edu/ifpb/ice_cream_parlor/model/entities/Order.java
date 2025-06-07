@@ -21,7 +21,7 @@ public class Order {
     private Coupon coupon;
     private double finalPrice;
 
-    public Order(Client client, OrderStatusNotifier notifier) {
+    public Order(OrderStatusNotifier notifier) {
         this.id = UUID.randomUUID().toString();
         this.items = new ArrayList<>();
         this.date = LocalDate.now();
