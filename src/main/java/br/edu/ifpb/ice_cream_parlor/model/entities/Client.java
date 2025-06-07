@@ -19,4 +19,16 @@ public class Client {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("+--------------------------------------+------------------+\n");
+        sb.append(String.format("| %-36s | %-16s |\n", "id", "name"));
+        sb.append("+--------------------------------------+------------------+\n");
+        sb.append(String.format("| %-36s | %-16s |\n", id, name));
+        sb.append("+--------------------------------------+------------------+\n");
+        return sb.toString();
+    }
+
 }
