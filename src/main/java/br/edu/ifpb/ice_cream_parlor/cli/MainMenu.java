@@ -23,12 +23,20 @@ public class MainMenu implements Menu {
             case "1":
                 OrderMenu orderMenu = new OrderMenu();
                 MenuUI orderMenuUI = new MenuUI(orderMenu);
-                orderMenuUI.start(); // Executa o submenu do cardápio
+                orderMenuUI.start();
                 break;
             case "3":
                 MenuCatalog catalog = new MenuCatalog();
                 MenuUI catalogUI = new MenuUI(catalog);
-                catalogUI.start(); // Executa o submenu do cardápio
+                catalogUI.start();
+                break;
+//                case "4":
+//                // TODO: Historico de pedidos direto do banco
+//                break;
+            case "5":
+                RegisterMenu register = new RegisterMenu();
+                MenuUI registerUI = new MenuUI(register);
+                registerUI.start();
                 break;
             case "0":
                 System.out.println("Encerrando aplicação. Até logo!");

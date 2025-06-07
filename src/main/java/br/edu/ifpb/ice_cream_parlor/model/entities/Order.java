@@ -1,6 +1,9 @@
 package br.edu.ifpb.ice_cream_parlor.model.entities;
 
 import br.edu.ifpb.ice_cream_parlor.patterns.decorator.IceCream;
+import br.edu.ifpb.ice_cream_parlor.patterns.observer.OrderStatusNotifier;
+import br.edu.ifpb.ice_cream_parlor.patterns.state.NewOrder;
+import br.edu.ifpb.ice_cream_parlor.patterns.state.OrderState;
 import br.edu.ifpb.ice_cream_parlor.patterns.strategy.Coupon;
 
 import java.time.LocalDate;
@@ -11,20 +14,22 @@ import java.util.UUID;
 public class Order {
     private String id;
     private List<OrderItem> items;
-    private Client client;
     private LocalDate date;
-    private String status;
+    private OrderState status;
+    private OrderStatusNotifier notifier;
     private Coupon coupon;
     private double finalPrice;
 
-    public Order(Client client) {
+    public Order(OrderStatusNotifier notifier) {
         this.id = UUID.randomUUID().toString();
         this.items = new ArrayList<>();
-        this.client = client;
         this.date = LocalDate.now();
-        this.status = "";
+        this.status = new NewOrder();
         this.coupon = null;
         this.finalPrice = 0.0;
+        this.notifier = notifier;
+
+        this.notifier.notifyObservers(this.id, status.getStatus());
     }
 
     public String getId() {
@@ -35,19 +40,15 @@ public class Order {
         return new ArrayList<>(items);
     }
 
-    public Client getClient() {
-        return client;
-    }
-
     public LocalDate getDate() {
         return date;
     }
 
     public String getStatus() {
-        return status;
+        return status.getStatus();
     }
 
-    public void setStatus(String status) {
+    public void setStatus(OrderState status) {
         this.status = status;
     }
 
@@ -85,6 +86,11 @@ public class Order {
             total += item.getSubtotal();
         }
         return total;
+    }
+
+    public void nextState() {
+        status.next(this);
+        notifier.notifyObservers(this.id, status.getStatus());
     }
 
     @Override
