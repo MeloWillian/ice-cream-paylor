@@ -4,9 +4,8 @@ import br.edu.ifpb.ice_cream_parlor.patterns.decorator.IceCream;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID; // Para um ID único simples.
+import java.util.UUID;
 
 public class Order {
     private String id;
