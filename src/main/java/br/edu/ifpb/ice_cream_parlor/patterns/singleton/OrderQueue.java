@@ -28,7 +28,7 @@ public class OrderQueue {
         }
     }
 
-    public Order processNextOrder() throws Exception{
+    public Order processNextOrder() throws EmptyQueueException{
         Order nextOrder = queue.poll(); // poll retorna null se a fila estiver vazia.
         if (nextOrder == null) {
             throw new EmptyQueueException("empty queue");
