@@ -5,7 +5,6 @@ import br.edu.ifpb.ice_cream_parlor.patterns.observer.OrderStatusNotifier;
 import br.edu.ifpb.ice_cream_parlor.patterns.state.NewOrder;
 import br.edu.ifpb.ice_cream_parlor.patterns.state.OrderState;
 import br.edu.ifpb.ice_cream_parlor.patterns.strategy.Coupon;
-import br.edu.ifpb.ice_cream_parlor.patterns.strategy.NoDiscount;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class Order {
         this.items = new ArrayList<>();
         this.date = LocalDate.now();
         this.status = new NewOrder();
-        this.coupon = new NoDiscount();
+        this.coupon = null;
         this.finalPrice = 0.0;
         this.notifier = notifier;
 

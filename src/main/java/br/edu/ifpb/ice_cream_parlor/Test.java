@@ -9,19 +9,30 @@ import br.edu.ifpb.ice_cream_parlor.patterns.observer.OrderStatusNotifier;
 
 public class Test {
 
-    // Como funciona a integração observer e state
+
     public static void main(String[] args) {
-        Client cliente = new Client("Fernanda");
-        ClientNotification notificacao = new ClientNotification(cliente.getName());
+        MainMenu mainMenu = new MainMenu();
+        MenuUI ui = new MenuUI(mainMenu);
+        ui.start();
 
-        OrderStatusNotifier notifier = new OrderStatusNotifier();
-        notifier.addObserver(notificacao);
-
-        Order pedido = new Order(notifier); // estado: Novo pedido
-        pedido.nextState(); // Em preparo
-        pedido.nextState(); // Pronto para retirada
-        pedido.nextState(); // Finalizado
-        pedido.nextState(); // Já finalizado
+        ClientNotification client = new ClientNotification("Alice");
+        client.update("ORDER-123", "Delivered");
     }
+
+
+    // Como funciona a integração observer e state
+//    public static void main(String[] args) {
+//        Client cliente = new Client("Fernanda");
+//        ClientNotification notificacao = new ClientNotification(cliente.getName());
+//
+//        OrderStatusNotifier notifier = new OrderStatusNotifier();
+//        notifier.addObserver(notificacao);
+//
+//        Order pedido = new Order(notifier); // estado: Novo pedido
+//        pedido.nextState(); // Em preparo
+//        pedido.nextState(); // Pronto para retirada
+//        pedido.nextState(); // Finalizado
+//        pedido.nextState(); // Já finalizado
+//    }
 
 }

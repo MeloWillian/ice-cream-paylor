@@ -30,14 +30,7 @@ public class Main {
             System.out.println("Expected error: " + e.getMessage()); // Erro esperado
         }
 
-        System.out.println("\n--- Testing MenuService ---"); // Testando MenuService
-        MenuService menuService = new MenuService();
 
-        System.out.println("Available Ice Cream Types: " + menuService.getAvailableIceCreamTypeNames()); // Tipos de Sorvete Disponíveis
-        System.out.println("Available flavors for POPSICLE: " + menuService.getAvailableFlavorsForType(IceCreamType.POPSICLE)); // Sabores para PICOLE
-
-        IceCream orderedFromMenu = menuService.requestScoopedIceCream("Chocochips", 3); // Flocos
-        System.out.println("\nOrdered via MenuService: " + orderedFromMenu.getName() + " - Price: $" + orderedFromMenu.getBasePrice()); // Pedido via MenuService
 
     }
 }
