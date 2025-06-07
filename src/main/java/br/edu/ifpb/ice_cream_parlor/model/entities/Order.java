@@ -2,46 +2,63 @@ package br.edu.ifpb.ice_cream_parlor.model.entities;
 
 import br.edu.ifpb.ice_cream_parlor.patterns.decorator.IceCream;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID; // Para um ID único simples.
 
-// Representa um pedido feito na sorveteria.
 public class Order {
-    private String id;                      // Identificador único do pedido.
-    private List<OrderItem> items;          // Lista de itens no pedido.
-    //TODO: Desenvolver outros atributos como cliente, data, status.
+    private String id;
+    private List<OrderItem> items;
+    private Client client;
+    private LocalDate date;
+    private String status;
 
-    public Order() {
-        this.id = UUID.randomUUID().toString(); // Gera um ID aleatório.
+    public Order(Client client) {
+        this.id = UUID.randomUUID().toString();
         this.items = new ArrayList<>();
+        this.client = client;
+        this.date = LocalDate.now();
+        this.status = "";
     }
 
-    // Retorna o ID do pedido.
     public String getId() {
         return id;
     }
 
-    // Retorna a lista de itens do pedido (cópia defensiva para imutabilidade externa da lista).
     public List<OrderItem> getItems() {
-        return new ArrayList<>(items); // Retorna uma cópia.
+        return new ArrayList<>(items);
     }
 
-    // Adiciona um item ao pedido.
+    public Client getClient() {
+        return client;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public void addItem(OrderItem item) {
         if (item != null) {
             this.items.add(item);
         }
     }
 
-    // Adiciona um sorvete com uma quantidade específica como um novo item ao pedido.
     public void addItem(IceCream iceCream, int quantity) {
         if (iceCream != null && quantity > 0) {
             this.items.add(new OrderItem(iceCream, quantity));
         }
     }
 
-    // Calcula o valor total do pedido (sem descontos ou taxas por enquanto).
     public double getTotalAmount() {
         double total = 0;
         for (OrderItem item : items) {
@@ -50,7 +67,6 @@ public class Order {
         return total;
     }
 
-    // Representação em string do pedido.
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
