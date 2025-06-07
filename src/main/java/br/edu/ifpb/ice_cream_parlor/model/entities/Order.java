@@ -15,6 +15,7 @@ public class Order {
     private LocalDate date;
     private String status;
     private Coupon coupon;
+    private double finalPrice;
 
     public Order(Client client) {
         this.id = UUID.randomUUID().toString();
@@ -23,6 +24,7 @@ public class Order {
         this.date = LocalDate.now();
         this.status = "";
         this.coupon = null;
+        this.finalPrice = 0.0;
     }
 
     public String getId() {
@@ -55,6 +57,14 @@ public class Order {
 
     public void setCoupon(Coupon coupon) {
         this.coupon = coupon;
+    }
+
+    public double getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(double finalPrice) {
+        this.finalPrice = finalPrice;
     }
 
     public void addItem(OrderItem item) {
