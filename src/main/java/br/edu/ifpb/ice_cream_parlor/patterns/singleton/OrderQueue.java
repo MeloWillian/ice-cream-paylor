@@ -1,4 +1,5 @@
 package br.edu.ifpb.ice_cream_parlor.patterns.singleton;
+import br.edu.ifpb.ice_cream_parlor.exceptions.EmptyQueueException;
 import br.edu.ifpb.ice_cream_parlor.model.entities.Order;
 
 import java.util.LinkedList;
@@ -30,7 +31,7 @@ public class OrderQueue {
     public Order processNextOrder() throws Exception{
         Order nextOrder = queue.poll(); // poll retorna null se a fila estiver vazia.
         if (nextOrder == null) {
-            throw new Exception("empty queue");
+            throw new EmptyQueueException("empty queue");
         }
         System.out.println("Processing order: " + nextOrder.getId());
         return nextOrder;
