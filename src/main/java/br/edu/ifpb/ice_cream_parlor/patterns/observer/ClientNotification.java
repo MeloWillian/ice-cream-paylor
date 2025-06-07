@@ -1,5 +1,7 @@
 package br.edu.ifpb.ice_cream_parlor.patterns.observer;
 
+import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.*;
+
 public class ClientNotification implements Observer {
 
     private final String clientName;
@@ -10,6 +12,11 @@ public class ClientNotification implements Observer {
 
     @Override
     public void update(String orderId, String status) {
-        System.out.printf("🔔 Olá %s! seu pedido [%s] está: %s%n", clientName, orderId, status);
+        System.out.printf(
+                "🔔 Olá %s%s%s! seu pedido [%s%s%s] está: %s%s%s%n",
+                BOLD, clientName, RESET,
+                YELLOW_BOLD, orderId, RESET,
+                CYAN_BOLD, status.toUpperCase(), RESET
+        );
     }
 }
