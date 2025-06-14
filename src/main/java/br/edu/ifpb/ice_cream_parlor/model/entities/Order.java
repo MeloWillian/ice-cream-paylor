@@ -18,7 +18,7 @@ public class Order {
     private OrderState status;
     private OrderStatusNotifier notifier;
     private Coupon coupon;
-    private double finalPrice;
+    private Client client;
 
     public Order(OrderStatusNotifier notifier) {
         this.id = UUID.randomUUID().toString();
@@ -26,7 +26,6 @@ public class Order {
         this.date = LocalDate.now();
         this.status = new NewOrder();
         this.coupon = null;
-        this.finalPrice = 0.0;
         this.notifier = notifier;
 
         this.notifier.notifyObservers(this.id, status.getStatus());
@@ -60,12 +59,17 @@ public class Order {
         this.coupon = coupon;
     }
 
-    public double getFinalPrice() {
-        return finalPrice;
+    public Client getClient() {
+        return client;
     }
 
-    public void setFinalPrice(double finalPrice) {
-        this.finalPrice = finalPrice;
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public double getTotal() {
+        double total = getSubTotal();
+        return (coupon != null) ? total - coupon.applyDiscount(total) : total;
     }
 
     public void addItem(OrderItem item) {
@@ -80,7 +84,7 @@ public class Order {
         }
     }
 
-    public double getTotalAmount() {
+    public double getSubTotal() {
         double total = 0;
         for (OrderItem item : items) {
             total += item.getSubtotal();
@@ -105,7 +109,8 @@ public class Order {
                 sb.append("  - ").append(item.toString()).append("\n");
             }
         }
-        sb.append("Total Amount: $").append(String.format("%.2f", getTotalAmount()));
+        sb.append("Sub Total: $").append(String.format("%.2f", getSubTotal())).append("\n");
+        sb.append("Total: $").append(String.format("%.2f", getTotal()));
         return sb.toString();
     }
 }

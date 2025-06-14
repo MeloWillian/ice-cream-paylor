@@ -3,8 +3,13 @@ package br.edu.ifpb.ice_cream_parlor.patterns.strategy;
 public class FrequentCustomerDiscountCoupon implements Coupon{
 
     @Override
+    public String getCode() {
+        return "CLIENTE_FREQUENTE";
+    }
+
+    @Override
     public String getName() {
-        return "Cliente frequente";
+        return "15% para cliente frequente";
     }
 
     @Override

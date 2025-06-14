@@ -39,25 +39,22 @@ public class ClientRepository {
         }
     }
 
-    public List<Client> findByName(String name) {
-        String sql = "SELECT id, name FROM " + table + " WHERE name = ?";
+    public List<Client> findAll() {
+        String sql = "SELECT id, name FROM " + table;
         List<Client> clients = new ArrayList<>();
 
         try (Connection conn = connectionFactory.createConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-
-            stmt.setString(1, name);
-
-            ResultSet rs = stmt.executeQuery();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                Client c = new Client(rs.getString("name"));
-                setClientId(c, rs.getString("id"));
-                clients.add(c);
+                Client client = new Client(rs.getString("name"));
+                setClientId(client, rs.getString("id"));
+                clients.add(client);
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao buscar cliente por nome", e);
+            throw new RuntimeException("Erro ao buscar todos os clientes", e);
         }
 
         return clients;
