@@ -31,7 +31,7 @@ public class MainMenu implements Menu {
                 trackingMenuUI.start();
                 break;
             case "3":
-                MenuCatalog catalog = new MenuCatalog();
+                CatalogMenu catalog = new CatalogMenu();
                 MenuUI catalogUI = new MenuUI(catalog);
                 catalogUI.start();
                 break;

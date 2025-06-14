@@ -2,7 +2,7 @@ package br.edu.ifpb.ice_cream_parlor.cli;
 
 import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.*;
 
-public class MenuCatalog implements Menu {
+public class CatalogMenu implements Menu {
 
     @Override
     public void show() {
