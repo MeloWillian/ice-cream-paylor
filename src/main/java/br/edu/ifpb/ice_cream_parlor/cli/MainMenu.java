@@ -9,7 +9,7 @@ public class MainMenu implements Menu {
     public void show() {
         System.out.println("\n" + BLUE + "=== 🍦 Sorveteria ===" + RESET);
         System.out.println("1. Fazer novo pedido");
-        System.out.println("2. Acompanhar pedido");
+        System.out.println("2. Acompanhar pedidos");
         System.out.println("3. Ver cardápio");
         System.out.println("4. Histórico de pedidos");
         System.out.println("5. Login / Cadastro");
@@ -25,14 +25,19 @@ public class MainMenu implements Menu {
                 MenuUI orderMenuUI = new MenuUI(orderMenu);
                 orderMenuUI.start();
                 break;
+            case "2":
+                TrackingMenu trackingMenu = new TrackingMenu();
+                MenuUI trackingMenuUI = new MenuUI(trackingMenu);
+                trackingMenuUI.start();
+                break;
             case "3":
                 MenuCatalog catalog = new MenuCatalog();
                 MenuUI catalogUI = new MenuUI(catalog);
                 catalogUI.start();
                 break;
-//                case "4":
-//                // TODO: Historico de pedidos direto do banco
-//                break;
+                case "4":
+                // TODO: Historico de pedidos direto do banco
+                break;
             case "5":
                 RegisterMenu register = new RegisterMenu();
                 MenuUI registerUI = new MenuUI(register);
