@@ -24,7 +24,7 @@ public class Popsicle implements IceCream {
 
     @Override
     public String getDescription() {
-        return "Delicious " + flavor + " flavored popsicle."; // Descrição do picolé.
+        return getName(); // Descrição.
     }
 
     // Getter para o sabor.

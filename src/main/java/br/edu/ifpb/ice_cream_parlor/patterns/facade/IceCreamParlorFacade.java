@@ -72,8 +72,8 @@ public class IceCreamParlorFacade {
     public void applyCouponToOrder(String orderId, Coupon coupon) {
         Order order = getOrderById(orderId);
         order.setCoupon(coupon);
-        double discountedPrice = coupon.applyDiscount(order.getTotalAmount());
-        order.setFinalPrice(discountedPrice);
+        double discountedPrice = coupon.applyDiscount(order.getTotal());
+//        order.setFinalPrice(discountedPrice);
         System.out.println("💸 Cupom aplicado! Preço com desconto: $" + String.format("%.2f", discountedPrice));
     }
 

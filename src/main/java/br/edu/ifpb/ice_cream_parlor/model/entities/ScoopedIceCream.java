@@ -26,7 +26,7 @@ public class ScoopedIceCream implements IceCream {
 
     @Override
     public String getDescription() {
-        return numberOfScoops + " scoop(s) of " + flavor + " flavored ice cream."; // Descrição.
+        return getName() + " " +numberOfScoops+" scopes"; // Descrição.
     }
 
     // Getter para o sabor.
