@@ -36,7 +36,9 @@ public class MainMenu implements Menu {
                 catalogUI.start();
                 break;
                 case "4":
-                // TODO: Historico de pedidos direto do banco
+                HistoryMenu historyMenu = new HistoryMenu();
+                MenuUI historyMenuUI = new MenuUI(historyMenu);
+                historyMenuUI.start();
                 break;
             case "5":
                 RegisterMenu register = new RegisterMenu();
