@@ -1,6 +1,8 @@
 package br.edu.ifpb.ice_cream_parlor.cli;
 
 import br.edu.ifpb.ice_cream_parlor.controller.MenuUI;
+import br.edu.ifpb.ice_cream_parlor.patterns.command.main_menu.*;
+
 import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.*;
 
 public class MainMenu implements Menu {
@@ -21,29 +23,24 @@ public class MainMenu implements Menu {
     public void handleInput(String input) {
         switch (input) {
             case "1":
-                OrderMenu orderMenu = new OrderMenu();
-                MenuUI orderMenuUI = new MenuUI(orderMenu);
-                orderMenuUI.start();
+                ShowOrderMenuCommand showOrderMenuCommand = new ShowOrderMenuCommand();
+                showOrderMenuCommand.execute();
                 break;
             case "2":
-                TrackingMenu trackingMenu = new TrackingMenu();
-                MenuUI trackingMenuUI = new MenuUI(trackingMenu);
-                trackingMenuUI.start();
+                ShowTrackingMenuCommand showTrackingMenuCommand = new ShowTrackingMenuCommand();
+                showTrackingMenuCommand.execute();
                 break;
             case "3":
-                CatalogMenu catalog = new CatalogMenu();
-                MenuUI catalogUI = new MenuUI(catalog);
-                catalogUI.start();
+                ShowCatalogMenuCommand showCatalogMenuCommand = new ShowCatalogMenuCommand();
+                showCatalogMenuCommand.execute();
                 break;
-                case "4":
-                HistoryMenu historyMenu = new HistoryMenu();
-                MenuUI historyMenuUI = new MenuUI(historyMenu);
-                historyMenuUI.start();
+            case "4":
+                ShowHistoryMenuCommand showHistoryMenuCommand = new ShowHistoryMenuCommand();
+                showHistoryMenuCommand.execute();
                 break;
             case "5":
-                RegisterMenu register = new RegisterMenu();
-                MenuUI registerUI = new MenuUI(register);
-                registerUI.start();
+                ShowRegisterMenuCommand showRegisterMenuCommand = new ShowRegisterMenuCommand();
+                showRegisterMenuCommand.execute();
                 break;
             case "0":
                 System.out.println("Encerrando aplicação. Até logo!");

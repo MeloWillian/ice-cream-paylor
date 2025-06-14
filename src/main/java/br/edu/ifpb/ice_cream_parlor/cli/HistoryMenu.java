@@ -1,5 +1,7 @@
 package br.edu.ifpb.ice_cream_parlor.cli;
 
+import br.edu.ifpb.ice_cream_parlor.patterns.command.history_menu.DisplayHistoryCommand;
+
 import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.GREEN;
 import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.RESET;
 
@@ -17,8 +19,8 @@ public class HistoryMenu implements Menu {
     public void handleInput(String input) {
         switch (input) {
             case "1":
-                // TODO: listar todos os pedidos do banco
-
+                DisplayHistoryCommand displayHistoryCommand = new DisplayHistoryCommand();
+                displayHistoryCommand.execute();
                 break;
 
             case "0":

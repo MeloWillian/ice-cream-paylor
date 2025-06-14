@@ -1,5 +1,9 @@
 package br.edu.ifpb.ice_cream_parlor.cli;
 
+import br.edu.ifpb.ice_cream_parlor.patterns.command.order_menu.ApplyDiscountCommand;
+import br.edu.ifpb.ice_cream_parlor.patterns.command.order_menu.ConfirmOrderCommand;
+import br.edu.ifpb.ice_cream_parlor.patterns.command.order_menu.CreateOrderCommand;
+
 import java.util.Scanner;
 
 import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.*;
@@ -19,23 +23,22 @@ public class OrderMenu implements Menu {
 
     @Override
     public void handleInput(String input) {
+        ConfirmOrderCommand confirmOrderCommand = new ConfirmOrderCommand();
+        CreateOrderCommand createOrderCommand = new CreateOrderCommand();
+        ApplyDiscountCommand applyDiscountCommand = new ApplyDiscountCommand();
 
         switch (input) {
             case "1":
-                // TODO: Monta o pedido
-
+                createOrderCommand.execute();
                 break;
             case "2":
-                // TODO: Aplicar cupom de desconto
-
+                applyDiscountCommand.execute();
                 break;
             case "3":
-                // TODO: Confirma o pedido
-
+                confirmOrderCommand.execute();
                 break;
             case "4":
-                // TODO: Cancela
-
+                confirmOrderCommand.undo();
                 break;
             case "0":
                 System.out.println("Retornando ao menu principal...");

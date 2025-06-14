@@ -1,5 +1,7 @@
 package br.edu.ifpb.ice_cream_parlor;
 
+import br.edu.ifpb.ice_cream_parlor.cli.MainMenu;
+import br.edu.ifpb.ice_cream_parlor.controller.MenuUI;
 import br.edu.ifpb.ice_cream_parlor.model.entities.Client;
 import br.edu.ifpb.ice_cream_parlor.model.entities.Order;
 import br.edu.ifpb.ice_cream_parlor.model.entities.OrderItem;
@@ -23,9 +25,9 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-//        MainMenu mainMenu = new MainMenu();
-//        MenuUI ui = new MenuUI(mainMenu);
-//        ui.start();
+        MainMenu mainMenu = new MainMenu();
+        MenuUI ui = new MenuUI(mainMenu);
+        ui.start();
 
 //        OrderStatusNotifier notifier = new OrderStatusNotifier();
 //        Client client = new Client("Jéfter");

@@ -1,5 +1,9 @@
 package br.edu.ifpb.ice_cream_parlor.cli;
 
+import br.edu.ifpb.ice_cream_parlor.patterns.command.catalog_menu.ListAvailableFlavorsCommand;
+import br.edu.ifpb.ice_cream_parlor.patterns.command.catalog_menu.ListIcecreamComplementsCommand;
+import br.edu.ifpb.ice_cream_parlor.patterns.command.catalog_menu.ListTypesIcecreamCommand;
+
 import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.*;
 
 public class CatalogMenu implements Menu {
@@ -18,26 +22,16 @@ public class CatalogMenu implements Menu {
     public void handleInput(String input) {
         switch (input) {
             case "1":
-                System.out.println("\nSabores disponíveis:");
-                System.out.println("- Chocolate");
-                System.out.println("- Morango");
-                System.out.println("- Baunilha");
-                System.out.println("- Flocos");
-                System.out.println("- Caramelo");
-                System.out.println("- Menta");
+                ListAvailableFlavorsCommand listAvailableFlavors = new ListAvailableFlavorsCommand();
+                listAvailableFlavors.execute();
                 break;
             case "2":
-                System.out.println("\nTipos de sorvete:");
-                System.out.println("- Picolé");
-                System.out.println("- Massa");
-                System.out.println("- Milkshake");
+                ListTypesIcecreamCommand listTypesIcecreamCommand = new ListTypesIcecreamCommand();
+                listTypesIcecreamCommand.execute();
                 break;
             case "3":
-                System.out.println("\nComplementos disponíveis:");
-                System.out.println("- Calda quente");
-                System.out.println("- Chantilly");
-                System.out.println("- Granulado");
-                System.out.println("- Castanha");
+                ListIcecreamComplementsCommand listIcecreamComplementsCommand = new ListIcecreamComplementsCommand();
+                listIcecreamComplementsCommand.execute();
                 break;
             case "0":
                 System.out.println("Retornando ao menu principal...");

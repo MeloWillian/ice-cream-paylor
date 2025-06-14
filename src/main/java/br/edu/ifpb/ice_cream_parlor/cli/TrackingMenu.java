@@ -1,5 +1,10 @@
 package br.edu.ifpb.ice_cream_parlor.cli;
 
+import br.edu.ifpb.ice_cream_parlor.patterns.command.tracking_menu.ListFinishedOrderCommand;
+import br.edu.ifpb.ice_cream_parlor.patterns.command.tracking_menu.ListNewOrderCommand;
+import br.edu.ifpb.ice_cream_parlor.patterns.command.tracking_menu.ListPreparationOrderCommand;
+import br.edu.ifpb.ice_cream_parlor.patterns.command.tracking_menu.ListWithdrawalOrderCommand;
+
 import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.*;
 import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.RESET;
 
@@ -20,20 +25,20 @@ public class TrackingMenu implements Menu {
     public void handleInput(String input) {
         switch (input) {
             case "1":
-                // TODO: listar novos pedidos do banco
-
+                ListNewOrderCommand listNewOrderCommand = new ListNewOrderCommand();
+                listNewOrderCommand.execute();
                 break;
             case "2":
-                // TODO: listar pedidos em preparo do banco
-
+                ListPreparationOrderCommand listPreparationOrderCommand = new ListPreparationOrderCommand();
+                listPreparationOrderCommand.execute();
                 break;
             case "3":
-                // TODO: listar pedidos prontos para retirada do banco
-
+                ListWithdrawalOrderCommand listWithdrawalOrderCommand = new ListWithdrawalOrderCommand();
+                listWithdrawalOrderCommand.execute();
                 break;
             case "4":
-                // TODO: listar pedidos finalizados do banco
-
+                ListFinishedOrderCommand listFinishedOrderCommand = new ListFinishedOrderCommand();
+                listFinishedOrderCommand.execute();
                 break;
             case "0":
                 System.out.println("Retornando ao menu principal...");
