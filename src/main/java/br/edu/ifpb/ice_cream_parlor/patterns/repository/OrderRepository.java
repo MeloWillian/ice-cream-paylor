@@ -76,17 +76,17 @@ public class OrderRepository {
         List<OrderView> orders = new ArrayList<>();
 
         String orderSql = """
-        SELECT o.id, date, status, coupon_code, client_id, c.name AS client_name, subtotal, total 
-        FROM orders AS o
-        JOIN clients AS c ON(o.client_id = c.id)
-        WHERE client_id = ?
-    """;
+            SELECT o.id, date, status, coupon_code, client_id, c.name AS client_name, subtotal, total 
+            FROM orders AS o
+            JOIN clients AS c ON(o.client_id = c.id)
+            WHERE client_id = ?
+        """;
 
         String itemSql = """
-        SELECT ice_cream_name, quantity, subtotal 
-        FROM order_items 
-        WHERE order_id = ?
-    """;
+            SELECT ice_cream_name, quantity, subtotal 
+            FROM order_items 
+            WHERE order_id = ?
+        """;
 
         try (Connection conn = connectionFactory.createConnection();
              PreparedStatement orderStmt = conn.prepareStatement(orderSql)) {
@@ -134,4 +134,63 @@ public class OrderRepository {
         return orders;
     }
 
+    public List<OrderView> findAllOrders() {
+        List<OrderView> orders = new ArrayList<>();
+
+        String orderSql = """
+            SELECT o.id, date, status, coupon_code, client_id, c.name AS client_name, subtotal, total 
+            FROM orders AS o
+            JOIN clients AS c ON(o.client_id = c.id)
+        """;
+
+        String itemSql = """
+            SELECT ice_cream_name, quantity, subtotal 
+            FROM order_items 
+            WHERE order_id = ?
+        """;
+
+        try (Connection conn = connectionFactory.createConnection();
+             PreparedStatement orderStmt = conn.prepareStatement(orderSql)) {
+
+            ResultSet orderRs = orderStmt.executeQuery();
+
+            while (orderRs.next()) {
+                OrderView orderView = new OrderView();
+
+                // Preenche os dados do pedido
+                String orderId = orderRs.getString("id");
+                orderView.setId(orderId);
+                orderView.setDate(orderRs.getDate("date").toLocalDate());
+                orderView.setStatus(orderRs.getString("status"));
+                orderView.setCoupon(orderRs.getString("coupon_code"));
+                orderView.setClient(orderRs.getString("client_name"));
+                orderView.setSubtotal(orderRs.getDouble("subtotal"));
+                orderView.setTotal(orderRs.getDouble("total"));
+
+                // Busca os itens do pedido
+                List<OrderItemView> itemViews = new ArrayList<>();
+                try (PreparedStatement itemStmt = conn.prepareStatement(itemSql)) {
+                    itemStmt.setString(1, orderId);
+                    ResultSet itemRs = itemStmt.executeQuery();
+
+                    while (itemRs.next()) {
+                        OrderItemView itemView = new OrderItemView();
+                        itemView.setIceCream(itemRs.getString("ice_cream_name"));
+                        itemView.setQuantity(itemRs.getInt("quantity"));
+                        itemView.setSubtotal(itemRs.getDouble("subtotal"));
+                        itemViews.add(itemView);
+                    }
+                }
+
+                orderView.setItems(itemViews);
+                orders.add(orderView);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("ERRO [findAllOrders]: " + e.getMessage());
+            throw new RuntimeException("Erro ao buscar todos os pedidos", e);
+        }
+
+        return orders;
+    }
 }
