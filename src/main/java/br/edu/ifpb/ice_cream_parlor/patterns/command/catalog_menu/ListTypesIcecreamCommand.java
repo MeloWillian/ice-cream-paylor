@@ -6,9 +6,9 @@ public class ListTypesIcecreamCommand implements Command {
     @Override
     public void execute() {
         System.out.println("\nTipos de sorvete:");
-        System.out.println("- Picolé");
-        System.out.println("- Massa");
-        System.out.println("- Milkshake");
+        System.out.println("1 Picolé");
+        System.out.println("2 Massa");
+        System.out.println("3 Milkshake");
     }
 
     @Override

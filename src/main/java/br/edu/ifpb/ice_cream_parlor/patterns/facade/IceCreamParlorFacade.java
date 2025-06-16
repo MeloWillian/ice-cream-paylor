@@ -2,15 +2,20 @@ package br.edu.ifpb.ice_cream_parlor.patterns.facade;
 
 import br.edu.ifpb.ice_cream_parlor.model.entities.*;
 import br.edu.ifpb.ice_cream_parlor.model.entities.enums.IceCreamType;
+import br.edu.ifpb.ice_cream_parlor.model.view.OrderView;
+import br.edu.ifpb.ice_cream_parlor.patterns.command.main_menu.ShowCatalogMenuCommand;
 import br.edu.ifpb.ice_cream_parlor.patterns.decorator.IceCream;
 import br.edu.ifpb.ice_cream_parlor.patterns.factory.IceCreamFactory;
 import br.edu.ifpb.ice_cream_parlor.patterns.observer.ClientNotification;
 import br.edu.ifpb.ice_cream_parlor.patterns.observer.OrderStatusNotifier;
+import br.edu.ifpb.ice_cream_parlor.patterns.repository.ClientRepository;
+import br.edu.ifpb.ice_cream_parlor.patterns.repository.OrderRepository;
 import br.edu.ifpb.ice_cream_parlor.patterns.singleton.OrderQueue;
 import br.edu.ifpb.ice_cream_parlor.patterns.strategy.Coupon;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
+import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.*;
 
 public class IceCreamParlorFacade {
 
@@ -18,6 +23,10 @@ public class IceCreamParlorFacade {
     private final Map<String, Order> orders = new HashMap<>();
     private final OrderStatusNotifier notifier = new OrderStatusNotifier();
     private final OrderQueue queue = OrderQueue.getInstance();
+    private final OrderRepository orderRepository = new OrderRepository();
+    private final ClientRepository clientRepository = new ClientRepository();
+    private final ShowCatalogMenuCommand showCatalogMenuCommand = new ShowCatalogMenuCommand();
+    private Scanner sc = new Scanner(System.in);
 
     // Cadastra cliente e inscreve observador
     public void registerClient(String name) {
@@ -35,7 +44,7 @@ public class IceCreamParlorFacade {
     }
 
     // Cria pedido e o vincula a um cliente
-    public String createOrder(String clientName) {
+    private String createEmptyOrder(String clientName) {
         Client client = clients.values().stream()
                 .filter(c -> c.getName().equalsIgnoreCase(clientName))
                 .findFirst()
@@ -61,7 +70,7 @@ public class IceCreamParlorFacade {
     }
 
     // Adiciona sorvete ao pedido
-    public void addItemToOrder(String orderId, IceCreamType type, String flavor, int scoops, String size, int quantity) {
+    private void addItemToOrder(String orderId, IceCreamType type, String flavor, int scoops, String size, int quantity) {
         Order order = getOrderById(orderId);
         IceCream iceCream = IceCreamFactory.createIceCream(type, flavor, scoops, size);
         order.addItem(iceCream, quantity);
@@ -69,7 +78,7 @@ public class IceCreamParlorFacade {
     }
 
     // Aplica cupom de desconto
-    public void applyCouponToOrder(String orderId, Coupon coupon) {
+    private void applyCouponToOrder(String orderId, Coupon coupon) {
         Order order = getOrderById(orderId);
         order.setCoupon(coupon);
         double discountedPrice = coupon.applyDiscount(order.getTotal());
@@ -106,5 +115,94 @@ public class IceCreamParlorFacade {
             throw new IllegalArgumentException("Pedido não encontrado: " + orderId);
         }
         return order;
+    }
+
+    public Order createOrder() {
+
+        try {
+            System.out.println("Insira o nome do cliente");
+            String name = sc.next();
+            List<Client> clientList = clientRepository.findAll();
+
+            if(clientList.isEmpty()) {
+                throw new Exception("Cliente não cadastrado");
+            }
+
+            String orderId = createEmptyOrder(name);
+
+            System.out.println("Escolha o tipo de sorvete" +
+                    "1. Picolé" +
+                    "2. Massa" +
+                    "3. Milkshake");
+
+            String type = sc.next();
+
+            while(!Arrays.asList("1", "2", "3").contains(type)) {
+                System.out.println("Selecione uma opção válida!");
+                type = sc.next();
+            }
+
+            IceCreamType iceCreamType = (type.equals("1")) ? IceCreamType.POPSICLE
+                    : (type.equals("2")) ? IceCreamType.SCOOPED
+                    : IceCreamType.MILKSHAKE;
+
+            System.out.println("Selecione o sabor do sorvete");
+
+            for(int i = 1; i <= iceCreamType.getFlavors().size(); i++) {
+                System.out.println(i + "." + iceCreamType.getFlavors().get(i));
+            }
+
+            int flavorNumber = sc.nextInt();
+
+            while(!Arrays.asList(1, 2).contains(flavorNumber)) {
+                System.out.println("Selecione uma opção válida!");
+                type = sc.next();
+            }
+
+            String flavor = iceCreamType.getFlavors().get(flavorNumber);
+
+            int balls = 0;
+            if(iceCreamType.equals(IceCreamType.SCOOPED)) {
+                System.out.println("Selecione a quantidade de bolas");
+                balls = sc.nextInt();
+            }
+
+            String size = "";
+            if(iceCreamType.equals(IceCreamType.MILKSHAKE)) {
+                System.out.println("Selecione o tamanho" +
+                        "P - Pequeno" +
+                        "M - Médio" +
+                        "G - Grande");
+
+                size = sc.next();
+                while(!Arrays.asList("P", "M", "G").contains(type)) {
+                    System.out.println("Selecione uma opção válida!");
+                    size = sc.next();
+                }
+            }
+
+            System.out.println("Quantas unidades deste item você deseja?");
+            int quantity = sc.nextInt();
+
+            addItemToOrder(orderId, iceCreamType, flavor, balls, size, quantity);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+    public void displayHistoryOrders() {
+        List<OrderView> orderViewList = orderRepository.findAllOrders();
+
+        if(orderViewList.isEmpty()) {
+            System.out.println("\n" + RED_BOLD + "=== 📋 Sem pedidos registrados ===" + RESET);
+        } else {
+            System.out.println("\n" + GREEN_BOLD + "=== 📋 Histórico de pedidos ===" + RESET);
+            for(OrderView ov : orderViewList) {
+                System.out.println(ov);
+            }
+        }
     }
 }

@@ -8,7 +8,6 @@ import br.edu.ifpb.ice_cream_parlor.model.entities.enums.IceCreamType;
 
 public class IceCreamFactory {
 
-    // TODO: Preços base deve vir de um arquivo de configuração ou banco de dados.
     private static final double PRICE_POPSICLE_CHOCOLATE = 3.50;
     private static final double PRICE_POPSICLE_STRAWBERRY = 3.00;
     private static final double PRICE_SCOOP_VANILLA = 5.00;

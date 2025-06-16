@@ -188,7 +188,6 @@ public class OrderRepository {
 
         } catch (SQLException e) {
             System.out.println("ERRO [findAllOrders]: " + e.getMessage());
-            throw new RuntimeException("Erro ao buscar todos os pedidos", e);
         }
 
         return orders;
