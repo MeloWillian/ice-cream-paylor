@@ -1,4 +1,5 @@
 package br.edu.ifpb.ice_cream_parlor.controller;
+
 import br.edu.ifpb.ice_cream_parlor.cli.Menu;
 
 import java.util.Scanner;
