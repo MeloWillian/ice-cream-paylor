@@ -10,6 +10,11 @@ public class Withdrawal implements OrderState {
     }
 
     @Override
+    public void cancel(Order order) {
+        order.setStatus(new Canceled());
+    }
+
+    @Override
     public String getStatus() {
         return "Pronto para retirada";
     }

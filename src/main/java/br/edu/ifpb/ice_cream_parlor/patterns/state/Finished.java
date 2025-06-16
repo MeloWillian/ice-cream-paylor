@@ -10,6 +10,11 @@ public class Finished implements OrderState {
     }
 
     @Override
+    public void cancel(Order order) {
+
+    }
+
+    @Override
     public String getStatus() {
         return "Finalizado";
     }
