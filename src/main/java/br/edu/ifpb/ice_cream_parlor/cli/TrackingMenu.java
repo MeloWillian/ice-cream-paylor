@@ -18,7 +18,7 @@ public class TrackingMenu implements Menu {
         System.out.println("3. Prontos para retirada");
         System.out.println("4. Finalizados");
         System.out.println("0. Voltar ao menu principal");
-        System.out.print("Por favor, escolha uma opção: ");
+        System.out.print("Escolha uma opção: ");
     }
 
     @Override

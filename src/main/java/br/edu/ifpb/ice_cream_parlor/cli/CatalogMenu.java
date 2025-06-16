@@ -15,7 +15,7 @@ public class CatalogMenu implements Menu {
         System.out.println("2. Ver tipos de sorvete");
         System.out.println("3. Ver complementos");
         System.out.println("0. Voltar ao menu principal");
-        System.out.print("Por favor, escolha uma opção: ");
+        System.out.print("Escolha uma opção: ");
     }
 
     @Override

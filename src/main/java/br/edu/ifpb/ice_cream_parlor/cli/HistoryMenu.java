@@ -9,10 +9,10 @@ public class HistoryMenu implements Menu {
 
     @Override
     public void show() {
-        System.out.println("\n" + GREEN + "=== 🧾 ACOMPANHAR PEDIDOS ===" + RESET);
+        System.out.println("\n" + GREEN + "=== 🧾 HISTÓRICO DE PEDIDOS ===" + RESET);
         System.out.println("1. Exibir histórico");
         System.out.println("0. Voltar ao menu principal");
-        System.out.print("Por favor, escolha uma opção: ");
+        System.out.print("Escolha uma opção: ");
     }
 
     @Override
