@@ -73,15 +73,11 @@ public class Order {
     }
 
     public void addItem(OrderItem item) {
-        if (item != null) {
-            this.items.add(item);
-        }
+        this.items.add(item);
     }
 
     public void addItem(IceCream iceCream, int quantity) {
-        if (iceCream != null && quantity > 0) {
-            this.items.add(new OrderItem(iceCream, quantity));
-        }
+        this.items.add(new OrderItem(iceCream, quantity));
     }
 
     public double getSubTotal() {
@@ -97,20 +93,20 @@ public class Order {
         notifier.notifyObservers(this.id, status.getStatus());
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Order ID: ").append(id).append("\n");
-        sb.append("Items:\n");
-        if (items.isEmpty()) {
-            sb.append("  (No items in order)\n");
-        } else {
-            for (OrderItem item : items) {
-                sb.append("  - ").append(item.toString()).append("\n");
-            }
-        }
-        sb.append("Sub Total: $").append(String.format("%.2f", getSubTotal())).append("\n");
-        sb.append("Total: $").append(String.format("%.2f", getTotal()));
-        return sb.toString();
-    }
+//    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("Order ID: ").append(id).append("\n");
+//        sb.append("Items:\n");
+//        if (items.isEmpty()) {
+//            sb.append("  (No items in order)\n");
+//        } else {
+//            for (OrderItem item : items) {
+//                sb.append("  - ").append(item.toString()).append("\n");
+//            }
+//        }
+//        sb.append("Sub Total: $").append(String.format("%.2f", getSubTotal())).append("\n");
+//        sb.append("Total: $").append(String.format("%.2f", getTotal()));
+//        return sb.toString();
+//    }
 }
