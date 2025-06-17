@@ -43,19 +43,21 @@ public class Test {
 //
 //        IceCream scoopedIceCream = IceCreamFactory.createIceCream(IceCreamType.SCOOPED, "Vanilla");
 //        IceCream scoopedIceCreamPersonalized = new CaramelSauce(scoopedIceCream);
-
+//
 //        order.addItem(new OrderItem(personalized, 2));
 //        order.addItem(new OrderItem(iceCreamTest, 1));
 //        order.addItem(new OrderItem(scoopedIceCreamPersonalized, 1));
-
+//
 //        System.out.println("Sub total: "+order.getSubTotal());
 //        System.out.println("Total: "+order.getTotal());
+//
+//        orderRepository.save(order);
+
 //
 //        OrderRepository orderRepository = new OrderRepository();
 //        List<OrderView> orders = orderRepository.findByClientId("65a2ff97-6ab7-4690-9adb-dd9a9c290d48");
 //        System.out.println(orders);
 
-//        orderRepository.save(order);
 
 //        #################### CLIENT #########################
 //        ClientRepository clientRepository = new ClientRepository();

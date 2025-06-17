@@ -9,7 +9,8 @@ import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.*;
 import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.RESET;
 
 public class RegisterClientCommand implements Command {
-    private final IceCreamParlorFacade facade = new IceCreamParlorFacade();
+
+    private final IceCreamParlorFacade facade = IceCreamParlorFacade.getInstance();
     Scanner scanner = new Scanner(System.in);
 
     @Override

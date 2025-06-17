@@ -7,20 +7,40 @@ import java.util.Scanner;
 
 public class CreateOrderCommand implements Command {
 
-    private final IceCreamParlorFacade facade = new IceCreamParlorFacade();
+    private final IceCreamParlorFacade facade = IceCreamParlorFacade.getInstance();
+    private final Scanner sc = new Scanner(System.in);
 
     @Override
     public void execute() {
+        try {
+            if (!facade.hasCurrentOrder()) {
+                System.out.print("👤 Digite o nome do cliente: ");
+                String clientName = sc.nextLine().trim();
 
-//        Scanner sc = new Scanner(System.in);
-//        String name = sc.next();
-//        facade.createOrder(name);
+                if (clientName.isEmpty()) {
+                    System.out.println("⚠️ Nome do cliente não pode ser vazio.");
+                    return;
+                }
 
+                facade.startOrder(clientName);
+            }
 
+            boolean adding = true;
+            while (adding) {
+                facade.addItemToCurrentOrder();
+
+                System.out.print("Deseja adicionar outro item ao pedido? (S/N): ");
+                String response = sc.nextLine().trim();
+                adding = response.equalsIgnoreCase("S");
+            }
+
+        } catch (Exception e) {
+            System.out.println("❌ Erro ao criar ou montar pedido: " + e.getMessage());
+        }
     }
 
     @Override
     public void undo() {
-
+        // Você pode implementar um "cancelar último pedido" aqui, se desejar.
     }
 }

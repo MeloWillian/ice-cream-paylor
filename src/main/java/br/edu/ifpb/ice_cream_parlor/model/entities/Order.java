@@ -93,20 +93,39 @@ public class Order {
         notifier.notifyObservers(this.id, status.getStatus());
     }
 
-//    @Override
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append("Order ID: ").append(id).append("\n");
-//        sb.append("Items:\n");
-//        if (items.isEmpty()) {
-//            sb.append("  (No items in order)\n");
-//        } else {
-//            for (OrderItem item : items) {
-//                sb.append("  - ").append(item.toString()).append("\n");
-//            }
-//        }
-//        sb.append("Sub Total: $").append(String.format("%.2f", getSubTotal())).append("\n");
-//        sb.append("Total: $").append(String.format("%.2f", getTotal()));
-//        return sb.toString();
-//    }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pedido: ").append(id).append("\n");
+        sb.append("Cliente: ").append(client != null ? client.getName() : "Sem cliente").append("\n");
+        sb.append("Data: ").append(date).append("\n");
+        sb.append("Status: ").append(status.getStatus()).append("\n\n");
+
+        sb.append(String.format("%-4s | %-25s | %-8s | %-9s\n", "Qt", "Descrição", "Preço", "Subtotal"));
+        sb.append("-----------------------------------------------------------\n");
+
+        for (OrderItem item : items) {
+            int quantity = item.getQuantity();
+            String description = item.getIceCream().getDescription();
+            double price = item.getIceCream().getBasePrice();
+            double subtotal = item.getSubtotal();
+
+            sb.append(String.format("%-4d | %-25s | R$ %6.2f | R$ %7.2f\n",
+                    quantity, description, price, subtotal));
+        }
+
+        sb.append("-----------------------------------------------------------\n");
+        sb.append(String.format("Subtotal: R$ %.2f\n", getSubTotal()));
+
+        if (coupon != null) {
+            double discount = coupon.applyDiscount(getSubTotal());
+            sb.append(String.format("Desconto: R$ %.2f\n", discount));
+        }
+
+        sb.append(String.format("Total: R$ %.2f\n", getTotal()));
+
+        return sb.toString();
+    }
+
+
 }

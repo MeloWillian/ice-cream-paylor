@@ -5,7 +5,7 @@ import br.edu.ifpb.ice_cream_parlor.patterns.facade.IceCreamParlorFacade;
 
 public class DisplayHistoryCommand implements Command {
 
-    IceCreamParlorFacade facade = new IceCreamParlorFacade();
+    private final IceCreamParlorFacade facade = IceCreamParlorFacade.getInstance();
 
     @Override
     public void execute() {

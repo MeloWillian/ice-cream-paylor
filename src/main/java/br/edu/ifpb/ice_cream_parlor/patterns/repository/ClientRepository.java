@@ -39,6 +39,29 @@ public class ClientRepository {
         }
     }
 
+    public Client findByName(String name) {
+        String sql = "SELECT id, name FROM " + table + " WHERE LOWER(name) = LOWER(?)";
+
+        try (Connection conn = connectionFactory.createConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, name);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Client client = new Client(rs.getString("name"));
+                    setClientId(client, rs.getString("id"));
+                    return client;
+                } else {
+                    return null; // ou você pode lançar uma exceção se preferir
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar cliente por nome", e);
+        }
+    }
+
     public List<Client> findAll() {
         String sql = "SELECT id, name FROM " + table;
         List<Client> clients = new ArrayList<>();
