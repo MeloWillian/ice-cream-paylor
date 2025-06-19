@@ -14,7 +14,7 @@ public class MainMenu implements Menu {
         System.out.println("2. Acompanhar pedidos");
         System.out.println("3. Ver cardápio");
         System.out.println("4. Histórico de pedidos");
-        System.out.println("5. Login / Cadastro");
+        System.out.println("5. Cadastro");
         System.out.println("0. Sair");
         System.out.print("Escolha uma opção: ");
     }

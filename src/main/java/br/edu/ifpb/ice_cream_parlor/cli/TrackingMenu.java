@@ -1,9 +1,8 @@
 package br.edu.ifpb.ice_cream_parlor.cli;
 
-import br.edu.ifpb.ice_cream_parlor.patterns.command.tracking_menu.ListFinishedOrderCommand;
-import br.edu.ifpb.ice_cream_parlor.patterns.command.tracking_menu.ListNewOrderCommand;
-import br.edu.ifpb.ice_cream_parlor.patterns.command.tracking_menu.ListPreparationOrderCommand;
-import br.edu.ifpb.ice_cream_parlor.patterns.command.tracking_menu.ListWithdrawalOrderCommand;
+import br.edu.ifpb.ice_cream_parlor.patterns.command.tracking_menu.UpdateStatusOrderCommand;
+import br.edu.ifpb.ice_cream_parlor.patterns.command.tracking_menu.CancelOrderCommand;
+import br.edu.ifpb.ice_cream_parlor.patterns.command.tracking_menu.ShowCurrentOrderCommand;
 
 import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.*;
 import static br.edu.ifpb.ice_cream_parlor.utils.AnsiColor.RESET;
@@ -12,11 +11,11 @@ public class TrackingMenu implements Menu {
 
     @Override
     public void show() {
+        ShowCurrentOrderCommand showCurrentOrderCommand = new ShowCurrentOrderCommand();
         System.out.println("\n" + PURPLE + "=== 🧾 ACOMPANHAR PEDIDOS ===" + RESET);
-        System.out.println("1. Novos pedidos");
-        System.out.println("2. Em preparo");
-        System.out.println("3. Prontos para retirada");
-        System.out.println("4. Finalizados");
+        showCurrentOrderCommand.execute();
+        System.out.println("1. Atualizar Status");
+        System.out.println("2. Cancelar");
         System.out.println("0. Voltar ao menu principal");
         System.out.print("Escolha uma opção: ");
     }
@@ -25,20 +24,12 @@ public class TrackingMenu implements Menu {
     public void handleInput(String input) {
         switch (input) {
             case "1":
-                ListNewOrderCommand listNewOrderCommand = new ListNewOrderCommand();
-                listNewOrderCommand.execute();
+                UpdateStatusOrderCommand updateStatusOrderCommand = new UpdateStatusOrderCommand();
+                updateStatusOrderCommand.execute();
                 break;
             case "2":
-                ListPreparationOrderCommand listPreparationOrderCommand = new ListPreparationOrderCommand();
-                listPreparationOrderCommand.execute();
-                break;
-            case "3":
-                ListWithdrawalOrderCommand listWithdrawalOrderCommand = new ListWithdrawalOrderCommand();
-                listWithdrawalOrderCommand.execute();
-                break;
-            case "4":
-                ListFinishedOrderCommand listFinishedOrderCommand = new ListFinishedOrderCommand();
-                listFinishedOrderCommand.execute();
+                CancelOrderCommand cancelOrderCommand = new CancelOrderCommand();
+                cancelOrderCommand.execute();
                 break;
             case "0":
                 System.out.println("Retornando ao menu principal...");

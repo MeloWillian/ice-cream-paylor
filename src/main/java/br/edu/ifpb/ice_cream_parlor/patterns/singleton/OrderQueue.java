@@ -21,6 +21,10 @@ public class OrderQueue {
         return instance;
     }
 
+    public Order peek(){
+        return queue.peek();
+    }
+
     public void addOrder(Order order) {
         if (order != null) {
             queue.add(order);
@@ -53,5 +57,12 @@ public class OrderQueue {
     public void clearQueue() {
         queue.clear();
         System.out.println("Order queue cleared.");
+    }
+
+    @Override
+    public String toString() {
+        return "OrderQueue{" +
+                "queue=" + queue +
+                '}';
     }
 }

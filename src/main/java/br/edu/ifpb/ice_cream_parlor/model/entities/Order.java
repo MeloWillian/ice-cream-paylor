@@ -90,6 +90,11 @@ public class Order {
 
     public void nextState() {
         status.next(this);
+//        notifier.notifyObservers(this.id, status.getStatus());
+    }
+
+    public void cancelState() {
+        status.cancel(this);
         notifier.notifyObservers(this.id, status.getStatus());
     }
 

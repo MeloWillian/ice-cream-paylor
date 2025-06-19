@@ -11,7 +11,7 @@ public class NewOrder implements OrderState {
 
     @Override
     public void cancel(Order order) {
-
+        order.setStatus(new Canceled());
     }
 
     @Override
