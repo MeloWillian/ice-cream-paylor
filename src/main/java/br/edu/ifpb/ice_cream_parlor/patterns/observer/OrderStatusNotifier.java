@@ -5,27 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//public class OrderStatusNotifier implements Subject {
-//
-//    private final List<Observer> observers = new ArrayList<>();
-//
-//    @Override
-//    public void addObserver(Observer observer) {
-//        observers.add(observer);
-//    }
-//
-//    @Override
-//    public void removeObserver(Observer observer) {
-//        observers.remove(observer);
-//    }
-//
-//    @Override
-//    public void notifyObservers(String orderId, String status) {
-//        for (Observer observer : observers) {
-//            observer.update(orderId, status);
-//        }
-//    }
-//}
 public class OrderStatusNotifier {
     private final Map<String, List<Observer>> observers = new HashMap<>();
 

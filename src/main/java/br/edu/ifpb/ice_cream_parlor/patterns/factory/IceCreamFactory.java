@@ -16,12 +16,10 @@ public class IceCreamFactory {
     private static final double PRICE_MILKSHAKE_STRAWBERRY_M = 11.00;
 
 
-    // Método de fábrica principal para criar sorvetes com parâmetros padrão.
     public static IceCream createIceCream(IceCreamType type, String flavor) {
         return createIceCream(type, flavor, 1, "M"); // 1 bola, tamanho Médio por padrão
     }
 
-    // Método de fábrica sobrecarregado para maior controle na criação.
     public static IceCream createIceCream(IceCreamType type, String flavor, int numberOfScoops, String milkshakeSize) {
         switch (type) {
             case POPSICLE:

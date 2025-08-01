@@ -41,6 +41,6 @@ public class CreateOrderCommand implements Command {
 
     @Override
     public void undo() {
-        // Você pode implementar um "cancelar último pedido" aqui, se desejar.
+
     }
 }

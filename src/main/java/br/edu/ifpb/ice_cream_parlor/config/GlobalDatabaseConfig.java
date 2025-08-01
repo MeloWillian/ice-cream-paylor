@@ -11,7 +11,6 @@ public class GlobalDatabaseConfig {
     private final ConnectionFactory connectionFactory;
 
     private GlobalDatabaseConfig() {
-        // Lê o tipo do banco de dados do arquivo application.properties
         String dbTypeProp = AppProperties.get("db.type");
         DbType dbType;
 

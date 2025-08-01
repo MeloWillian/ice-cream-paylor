@@ -33,10 +33,6 @@ public class IceCreamParlorFacade {
     public static IceCreamParlorFacade getInstance() {
         if (instance == null) {
             instance = new IceCreamParlorFacade();
-            List<Client> listClients = instance.clientRepository.findAll();
-            for(Client client : listClients){
-//                instance.notifier.addObserver(new ClientNotification(client.getName()));
-            }
         }
         return instance;
     }
@@ -49,7 +45,6 @@ public class IceCreamParlorFacade {
         }
 
         Client client = new Client(name);
-//        notifier.addObserver(new ClientNotification(name));
         clientRepository.save(client);
     }
 
@@ -72,19 +67,6 @@ public class IceCreamParlorFacade {
 
     // --- PEDIDOS ---
 
-//    public void startOrder(String clientName) throws Exception {
-//        Client client = clientRepository.findByName(clientName);
-//        if (client == null) throw new Exception("Cliente não encontrado.");
-//
-//        Order order = new Order(notifier);
-//        order.setClient(client);
-//        orders.put(order.getId(), order);
-//        queue.addOrder(order);
-//        lastCreatedOrderId = order.getId();
-//
-//        System.out.println("🧾 Pedido iniciado para " + client.getName() + " | ID: " + order.getId());
-//    }
-
     public void startOrder(String clientName) throws Exception {
         Client client = clientRepository.findByName(clientName);
         if (client == null) throw new Exception("Cliente não encontrado.");
@@ -95,7 +77,6 @@ public class IceCreamParlorFacade {
         queue.addOrder(order);
         lastCreatedOrderId = order.getId();
 
-        // 🔥 Vincula o cliente como observer apenas desse pedido
         notifier.addObserver(order.getId(), new ClientNotification(client.getName()));
 
         System.out.println("🧾 Pedido iniciado para " + client.getName() + " | ID: " + order.getId());
@@ -230,24 +211,6 @@ public class IceCreamParlorFacade {
         }
     }
 
-//    public void cancelOrder() {
-//        if (!hasCurrentOrder()) {
-//            System.out.println("⚠️ Nenhum pedido para cancelar.");
-//            return;
-//        }
-//
-//        Order order = orders.remove(lastCreatedOrderId);
-//        if (order != null) {
-//            queue.removeOrder(order);
-//            notifier.notifyObservers(order.getId(), "Cancelado");
-//            System.out.println("❌ Pedido cancelado.");
-//        } else {
-//            System.out.println("⚠️ Pedido não encontrado.");
-//        }
-//
-//        lastCreatedOrderId = null;
-//    }
-
     public void cancelOrder() {
         if (!hasCurrentOrder()) {
             System.out.println("⚠️ Nenhum pedido para cancelar.");
@@ -328,12 +291,10 @@ public class IceCreamParlorFacade {
 
         System.out.println(order);
 
-        // Se o pedido estiver cancelado, avança para o próximo
         if (order.getStatus().equals("Cancelado")) {
             notifier.removeObservers(order.getId());
             orderQueue.processNextOrder();
 
-            // Verifica se há um próximo pedido
             Order nextOrder = getCurrentOrder();
             if (nextOrder != null) {
                 System.out.println("\n" + GREEN_BOLD + "➡️ Próximo pedido na fila:" + RESET);
@@ -349,40 +310,27 @@ public class IceCreamParlorFacade {
         return orderQueue.peek();
     }
 
-//    public void updateStatus(){
-//        getCurrentOrder().nextState();
-//        if(getCurrentOrder().getStatus().equals("Finalizado") && !orderQueue.isEmpty()){
-//            orderQueue.processNextOrder();
-//        }
-//        if(orderQueue.isEmpty()){
-//            System.out.println("\n" + RED_BOLD + " ❌ A FILA DE PEDIDOS ESTÁ VAZIA!" + RESET);
-//        }
-//    }
-//
-//    public void cancelStatus(){
-//        getCurrentOrder().cancelState();
-//    }
-public void updateStatus() {
-    Order order = getCurrentOrder();
-    if (order == null) {
-        System.out.println("⚠️ Nenhum pedido na fila.");
-        return;
-    }
+    public void updateStatus() {
+        Order order = getCurrentOrder();
+        if (order == null) {
+            System.out.println("⚠️ Nenhum pedido na fila.");
+            return;
+        }
 
-    order.nextState();
-    notifier.notifyObservers(order.getId(), order.getStatus());
+        order.nextState();
+        notifier.notifyObservers(order.getId(), order.getStatus());
 
-    if (order.getStatus().equals("Finalizado")) {
-        notifier.removeObservers(order.getId());
-        if (!orderQueue.isEmpty()) {
-            orderQueue.processNextOrder();
+        if (order.getStatus().equals("Finalizado")) {
+            notifier.removeObservers(order.getId());
+            if (!orderQueue.isEmpty()) {
+                orderQueue.processNextOrder();
+            }
+        }
+
+        if (orderQueue.isEmpty()) {
+            System.out.println("\n" + RED_BOLD + " ❌ A FILA DE PEDIDOS ESTÁ VAZIA!" + RESET);
         }
     }
-
-    if (orderQueue.isEmpty()) {
-        System.out.println("\n" + RED_BOLD + " ❌ A FILA DE PEDIDOS ESTÁ VAZIA!" + RESET);
-    }
-}
 
     public void cancelStatus() {
         Order order = getCurrentOrder();
@@ -392,10 +340,8 @@ public void updateStatus() {
         }
 
         order.cancelState();
-//        notifier.notifyObservers(order.getId(), "Cancelado");
         notifier.removeObservers(order.getId());
         if(!orderQueue.isEmpty()){orderQueue.processNextOrder();}
     }
-
 
 }

@@ -2,10 +2,9 @@ package br.edu.ifpb.ice_cream_parlor.model.entities;
 
 import br.edu.ifpb.ice_cream_parlor.patterns.decorator.IceCream;
 
-// Classe que representa um picolé.
 public class Popsicle implements IceCream {
-    private String flavor;      // Sabor do picolé.
-    private double basePrice;   // Preço base do picolé.
+    private String flavor;
+    private double basePrice;
 
     public Popsicle(String flavor, double basePrice) {
         this.flavor = flavor;
@@ -14,7 +13,7 @@ public class Popsicle implements IceCream {
 
     @Override
     public String getName() {
-        return "Popsicle of " + flavor; // Nome formatado do picolé.
+        return "Popsicle of " + flavor;
     }
 
     @Override
@@ -24,20 +23,17 @@ public class Popsicle implements IceCream {
 
     @Override
     public String getDescription() {
-        return getName(); // Descrição.
+        return getName();
     }
 
-    // Getter para o sabor.
     public String getFlavor() {
         return flavor;
     }
 
-    // Setter para o sabor.
     public void setFlavor(String flavor) {
         this.flavor = flavor;
     }
 
-    // Setter para o preço base.
     public void setBasePrice(double basePrice) {
         this.basePrice = basePrice;
     }
