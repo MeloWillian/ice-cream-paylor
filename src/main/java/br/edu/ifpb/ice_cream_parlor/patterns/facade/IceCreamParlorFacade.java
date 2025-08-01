@@ -221,7 +221,7 @@ public class IceCreamParlorFacade {
         if (order != null) {
             queue.removeOrder(order);
             notifier.notifyObservers(order.getId(), "Cancelado");
-            notifier.removeObservers(order.getId()); // 🔥 Remove observers desse pedido
+            notifier.removeObservers(order.getId());
             System.out.println("❌ Pedido cancelado.");
         } else {
             System.out.println("⚠️ Pedido não encontrado.");
